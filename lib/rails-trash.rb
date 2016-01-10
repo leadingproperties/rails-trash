@@ -7,7 +7,6 @@ module Rails
 
     included do
       alias_method_chain :destroy, :trash
-      scope :deleted_in, -> { where.not(deleted_at: nil) }
     end
 
     module ClassMethods
