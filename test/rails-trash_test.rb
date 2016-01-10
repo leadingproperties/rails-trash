@@ -1,14 +1,3 @@
-module Rails
-  module VERSION
-    MAJOR = 3
-    MINOR = 1
-    TINY  = 0
-    PRE   = "rc1"
-
-    STRING = [MAJOR, MINOR, TINY, PRE].compact.join('.')
-  end
-end
-
 require 'test/unit'
 require 'rubygems'
 require 'active_record'
@@ -56,7 +45,7 @@ end
 
 class Entry < ActiveRecord::Base
   include Rails::Trash
-  default_scope where(arel_table[:deleted_at].eq(nil)) if arel_table[:deleted_at]
+  default_scope { where(arel_table[:deleted_at].eq(nil)) } if arel_table[:deleted_at]
 
   belongs_to :site
   has_many :comments, :dependent => :destroy
@@ -64,7 +53,7 @@ end
 
 class Comment < ActiveRecord::Base
   include Rails::Trash
-  default_scope where(arel_table[:deleted_at].eq(nil)) if arel_table[:deleted_at]
+  default_scope { where(arel_table[:deleted_at].eq(nil)) } if arel_table[:deleted_at]
   belongs_to :entry
 end
 
